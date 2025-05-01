@@ -1,0 +1,21 @@
+<h2>Дополнительные услуги</h2>
+
+<div class="services-list">
+  <div *ngFor="let service of services$ | async" class="service-card">
+    <div class="service-content">
+      <!-- Используем только один тег img с обработкой ошибок -->
+      <img [src]="service.photo" 
+           [alt]="service.name" 
+           class="service-image"
+           (error)="handleImageError($event, service)">
+      <div class="service-info">
+        <h3>{{ service.name }}</h3>
+        <p>{{ service.description }}</p>
+        <div class="service-details">
+          <span>Цена: {{ service.price }} руб.</span>
+          <span>Длительность: {{ service.duration }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
