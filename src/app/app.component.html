@@ -6,7 +6,7 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
+<!--
 <style>
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -207,7 +207,7 @@
   <img class="brand-logo" src="assets/logo.svg" alt="Логотип">
   <nav>
     <a routerLink="/services" class="nav-button">Услуги</a>
-    <a routerLink="/rooms" class="nav-button">Номера</a> <!-- Новая кнопка -->
+    <a routerLink="/rooms" class="nav-button">Номера</a> 
   </nav>
 </header>
 
@@ -358,14 +358,29 @@
   </div>
 </main>
 
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-<router-outlet />
+<router-outlet /> 
+-->
+
+<mat-toolbar color="primary" class="brand-toolbar">
+  <img class="brand-logo" src="assets/logo.svg" alt="Логотип" style="height: 65px; margin-right: 16px;">
+  <span class="brand-name">HotelApp</span>
+  
+  <nav class="nav-buttons">
+    <a mat-button routerLink="/" class="nav-button">Главная</a>
+    <a mat-button routerLink="/services" class="nav-button">Услуги</a>
+    <a mat-button routerLink="/booking/1" class="nav-button">Бронирование</a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <button *ngIf="isAuthenticated$ | async" mat-button (click)="logout()">
+    <mat-icon>logout</mat-icon> Выход
+  </button>
+</mat-toolbar>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
 

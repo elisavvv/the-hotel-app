@@ -1,4 +1,4 @@
-header {
+/*header {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -29,4 +29,51 @@ header {
   }
   main {
     padding: 20px;
-  }
+  }*/
+/* app.component.css */
+:host {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.brand-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brand-name {
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-button {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-button:hover {
+  opacity: 0.8;
+}
+
