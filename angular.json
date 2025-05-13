@@ -35,7 +35,13 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+            "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
@@ -46,15 +52,21 @@
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"
                 }
-              ],
-              "outputHashing": "all"
+            ],
+            "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.ts"
+              }
+            ],
+            "optimization": false,
+            "extractLicenses": false,
+            "sourceMap": true
             }
-          },
+            },
           "defaultConfiguration": "production"
         },
         "serve": {

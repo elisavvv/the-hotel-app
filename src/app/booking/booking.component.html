@@ -1,10 +1,76 @@
-<mat-card class="booking-container">
+<!--<mat-card class="booking-container">
   <mat-card-header>
     <mat-card-title>Бронирование: {{ room?.name }}</mat-card-title>
     <mat-card-subtitle *ngIf="room">
       Цена: {{ room.price }} руб./ночь
       <span *ngIf="dateRangeDisplay">
         | Выбрано: {{ dateRangeDisplay }} ({{ calculateDays() }} ночей)
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Ваше имя</mat-label>
+        <input matInput formControlName="name" placeholder="Иван Иванов">
+        <mat-error *ngIf="bookingForm.get('name')?.hasError('required')">
+          Обязательное поле
+        </mat-error>
+      </mat-form-field>
+
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="example@mail.com">
+        <mat-error *ngIf="bookingForm.get('email')?.hasError('required')">
+          Обязательное поле
+        </mat-error>
+        <mat-error *ngIf="bookingForm.get('email')?.hasError('email')">
+          Введите корректный email
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Даты бронирования</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker" [dateFilter]="dateFilter">
+          <input matStartDate formControlName="start" placeholder="Дата заезда" 
+                [min]="minDate" [max]="maxDate">
+          <input matEndDate formControlName="end" placeholder="Дата выезда"
+                [min]="minDate" [max]="maxDate">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker></mat-date-range-picker>
+        
+        
+        <mat-error *ngIf="bookingForm.get('dateRange.start')?.hasError('required')">
+          Укажите дату заезда
+        </mat-error>
+        <mat-error *ngIf="bookingForm.get('dateRange.end')?.hasError('required')">
+          Укажите дату выезда
+        </mat-error>
+        <mat-error *ngIf="bookingForm.get('dateRange')?.hasError('dateRange')">
+          Дата выезда должна быть после даты заезда
+        </mat-error>
+      </mat-form-field>
+      
+      <input matInput [value]="dateRangeDisplay" readonly class="date-display">
+
+     
+      <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid">
+        <mat-icon>check</mat-icon> Забронировать
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>-->
+<mat-card class="booking-container">
+  <mat-card-header>
+    <mat-card-title>Бронирование: {{ room?.name }}</mat-card-title>
+    <mat-card-subtitle *ngIf="room">
+      Цена: {{ room.price }} руб./ночь
+      <span *ngIf="dateRangeDisplay">
+        | Выбрано: {{ dateRangeDisplay }} ({{ calculateDays() }} ночей, {{ calculateTotalPrice() }} руб.)
       </span>
     </mat-card-subtitle>
   </mat-card-header>
@@ -31,31 +97,33 @@
           Введите корректный email
         </mat-error>
       </mat-form-field>
-      
-      <mat-form-field appearance="outline">
-        <mat-label>Даты бронирования</mat-label>
-        <mat-date-range-input [rangePicker]="rangePicker" [dateFilter]="dateFilter">
-          <input matStartDate formControlName="start" placeholder="Дата заезда" 
-                [min]="minDate" [max]="maxDate">
-          <input matEndDate formControlName="end" placeholder="Дата выезда"
-                [min]="minDate" [max]="maxDate">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-        <mat-date-range-picker #rangePicker></mat-date-range-picker>
-        
-        <!-- Исправленные проверки ошибок -->
-        <mat-error *ngIf="bookingForm.get('dateRange.start')?.hasError('required')">
-          Укажите дату заезда
-        </mat-error>
-        <mat-error *ngIf="bookingForm.get('dateRange.end')?.hasError('required')">
-          Укажите дату выезда
-        </mat-error>
-        <mat-error *ngIf="bookingForm.get('dateRange')?.hasError('dateRange')">
-          Дата выезда должна быть после даты заезда
-        </mat-error>
-      </mat-form-field>
-      <!-- Поле для отображения объединенного формата дат -->
-      <input matInput [value]="dateRangeDisplay" readonly class="date-display">
+
+      <!-- Группа дат -->
+      <div formGroupName="dateRange">
+        <mat-form-field appearance="outline">
+          <mat-label>Дата заезда</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="start" [min]="minDate" [max]="maxDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+          <mat-error *ngIf="bookingForm.get('dateRange.start')?.hasError('required')">
+            Укажите дату заезда
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Дата выезда</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="end" [min]="minDate" [max]="maxDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+          <mat-error *ngIf="bookingForm.get('dateRange.end')?.hasError('required')">
+            Укажите дату выезда
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-error *ngIf="bookingForm.get('dateRange')?.hasError('dateRange')" class="global-error">
+        Дата выезда должна быть после даты заезда
+      </mat-error>
 
       <!-- Кнопка отправки -->
       <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid">
