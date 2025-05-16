@@ -1,0 +1,46 @@
+{
+  "name": "hotel-app-server",
+  "version": "1.0.0",
+  "description": "JSON Server with JWT authentication for Hotel App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "json-server": "json-server --watch db.json --port 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@angular/cdk": "^19.2.16",
+    "@angular/common": "^19.2.10",
+    "@angular/core": "^19.2.10",
+    "@angular/forms": "^19.2.10",
+    "@angular/material": "^19.2.16",
+    "@angular/router": "^19.2.10",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "json-server": "0.17.4",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.2.12",
+    "@types/express": "^4.17.21",
+    "@types/jasmine": "^5.1.8",
+    "@types/jasminewd2": "^2.0.13",
+    "@types/node": "^20.11.19",
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elisavvv/the-hotel-app.git"
+  },
+  "keywords": [
+    "json-server",
+    "rest-api",
+    "authentication"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elisavvv/the-hotel-app/issues"
+  },
+  "homepage": "https://github.com/elisavvv/the-hotel-app#readme"
+}

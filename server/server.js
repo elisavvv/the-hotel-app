@@ -10,41 +10,55 @@ const SECRET_KEY = 'your-strong-secret-key-123';
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
+// CORS
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); // Укажи точный URL фронтенда
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
-// Логирование всех запросов
-server.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  next();
+// Эндпоинт регистрации (без bcrypt)
+server.post('/auth/register', (req, res) => {
+  const { username, email, password } = req.body;
+  
+  // Простая валидация
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'Все поля обязательны' });
+  }
+
+  const users = router.db.get('users').value();
+  if (users.some(u => u.username === username)) {
+    return res.status(400).json({ message: 'Имя пользователя занято' });
+  }
+
+  const newUser = {
+    id: Date.now(),
+    username,
+    email,
+    password // В реальном проекте здесь должно быть хеширование!
+  };
+
+  router.db.get('users').push(newUser).write();
+
+  const token = jwt.sign({ userId: newUser.id }, SECRET_KEY, { expiresIn: '1h' });
+  res.json({ token });
 });
 
-// CORS
-server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-});
-
-// Эндпоинты аутентификации
+// Эндпоинт входа (без bcrypt)
 server.post('/auth/login', (req, res) => {
   const { username, password } = req.body;
-  const user = router.db.get('users').find({ username }).value();
+  const user = router.db.get('users').find({ username, password }).value();
 
-  if (user && user.password === password) {
+  if (user) {
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
     res.json({ token });
   } else {
-    res.status(401).json({ message: 'Неверные учетные данные' });
+    res.status(401).json({ message: 'Неверные данные' });
   }
 });
 
-// Защита маршрутов
+// Защищённые маршруты
 server.use((req, res, next) => {
   if (req.path.startsWith('/auth')) return next();
   
@@ -57,14 +71,5 @@ server.use((req, res, next) => {
   }
 });
 
-// Основной роутер
 server.use(router);
-
-// Запуск сервера
-server.listen(3000, () => {
-  console.log('Сервер запущен на http://localhost:3000');
-  console.log('Доступные маршруты:');
-  console.log('POST /auth/login');
-  console.log('GET /users');
-  console.log('GET /hotels');
-});
+server.listen(3000, () => console.log('Server running on port 3000'));

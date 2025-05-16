@@ -11,5 +11,5 @@ export const routes: Routes = [
   { path: 'booking/:id', component: BookingComponent, canActivate: [authGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
 ];

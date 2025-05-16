@@ -5,3 +5,24 @@ html, body {
   height: 100%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+/* Snackbar стили */
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+.warning-snackbar {
+  background-color: #ff9800;
+  color: white;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 
+              0 6px 10px 0 rgba(0,0,0,0.14), 
+              0 1px 18px 0 rgba(0,0,0,0.12) !important;
+}

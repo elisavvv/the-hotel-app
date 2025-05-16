@@ -1,36 +1,3 @@
-/*header {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .brand-logo {
-    height: 80px;
-    width: auto; 
-  }
-  
-  nav {
-    margin-left: auto;
-  }
-  
-  .nav-button {
-    background: #11A6E1;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    margin-left: 10px;
-  }
-  
-  .nav-button:hover {
-    background: #0E8BC2;
-  }
-  main {
-    padding: 20px;
-  }*/
-/* app.component.css */
 :host {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",

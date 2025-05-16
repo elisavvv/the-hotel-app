@@ -75,17 +75,19 @@ export class RegisterComponent {
     });
   }
 
+// обновляем onSubmit:
   onSubmit() {
     if (this.registerForm.valid) {
       const { username, email, password } = this.registerForm.value;
       this.authService.register(username!, email!, password!).subscribe({
-        next: () => {
-          this.router.navigate(['/login']);
+        next: (response) => {
+          // Автоматическая авторизация после регистрации
+          this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {
           this.errorMessage = err.error?.message || 'Ошибка регистрации';
         }
       });
     }
-  }
+}
 }

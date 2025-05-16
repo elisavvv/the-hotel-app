@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-housing-location',
   imports: [CommonModule, RouterModule],
+  standalone: true,
   template: `
     <div class="room-card">
       <img [src]="housingLocation.photo" alt="Фото номера" class="room-photo">
