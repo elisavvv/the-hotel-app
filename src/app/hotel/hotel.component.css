@@ -97,3 +97,26 @@
 .book-button:hover {
   background: #0d8ec7;
 }
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #11A6E1;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.user-header button {
+  color: white;
+  border: 1px solid white;
+  background: transparent;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-header button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

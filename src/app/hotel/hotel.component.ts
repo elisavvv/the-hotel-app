@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HotelService, HousingLocation } from '../services/hotel.service';
 import { Observable, tap } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-hotel',
@@ -16,18 +17,28 @@ import { Observable, tap } from 'rxjs';
     RouterModule
   ],
   templateUrl: './hotel.component.html', // Используем внешний HTML-файл
-  styleUrls: ['./hotel.component.css']   // Переносим стили в отдельный файл
+  styleUrls: ['./hotel.component.css'],   // Переносим стили в отдельный файл
+  providers: [AuthService]
 })
+
 export class HotelComponent implements OnInit {
+  username: string = 'Гость'; 
   searchText = '';
   housingLocations: HousingLocation[] = [];
   filteredLocations: HousingLocation[] = [];
   isLoading = true;
 
-  constructor(private hotelService: HotelService) {}
+  constructor(
+    private hotelService: HotelService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.loadData();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   loadData() {

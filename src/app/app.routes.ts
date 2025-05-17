@@ -3,7 +3,9 @@ import { BookingComponent } from './booking/booking.component';
 import { ServicesComponent } from './services/services.component';
 import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './auth/auth.guard';
-import { RegisterComponent } from './auth/register/register.component'; 
+import { RegisterComponent } from './auth/register/register.component';
+import { HotelComponent } from './hotel/hotel.component';
+import { HotelRoomsComponent } from './hotel-rooms/hotel-rooms.component'; 
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,4 +14,13 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
   { path: 'register', component: RegisterComponent },
+  { 
+    path: '', 
+    component: HotelComponent,
+    canActivate: [authGuard],
+    children: [
+      { path: '', component: HotelRoomsComponent }
+    ]
+  },
+  { path: '**', redirectTo: '' }
 ];
