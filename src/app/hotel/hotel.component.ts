@@ -4,7 +4,7 @@ import { HousingLocationComponent } from '../housing-location/housing-location.c
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HotelService, HousingLocation } from '../services/hotel.service';
-import { Observable, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 @Component({

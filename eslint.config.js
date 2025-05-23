@@ -1,16 +1,17 @@
-// @ts-check
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
+import angular from '@angular-eslint/eslint-plugin';
+import angularTemplate from '@angular-eslint/eslint-plugin-template';
+import tseslint from "typescript-eslint";
 
-module.exports = tseslint.config(
+export default tseslint.config(
     {
         files: ["**/*.ts"],
         extends: [
-            ...tseslint.configs.recommended,
-            ...angular.configs.tsRecommended,
+           ...tseslint.configs.recommended,
+           ...angular.configs.recommended,
         ],
         processor: angular.processInlineTemplates,
         rules: {
+            "@angular-eslint/prefer-standalone": "warn",
             "@angular-eslint/directive-selector": [
                 "error",
                 {
@@ -31,9 +32,9 @@ module.exports = tseslint.config(
             "padding-line-between-statements": [
                 "error",
                 {
-                    "blankLine": "always",
-                    "prev": "*",
-                    "next": "return"
+                    blankLine: "always",
+                    prev: "*",
+                    next: "return"
                 }
             ],
             "@typescript-eslint/naming-convention": [
@@ -111,11 +112,14 @@ module.exports = tseslint.config(
         },
     },
     {
-        files: ["**/*.html"],
-        extends: [
+      files: ["**/*.html"],
+      extends: [
             ...angular.configs.templateRecommended,
             ...angular.configs.templateAccessibility,
         ],
-        rules: {},
+        rules: {
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-empty-function": "off"
+        },
     }
 );

@@ -8,6 +8,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { GlobalErrorHandler } from './core/handlers/global-error-handler';
 import { errorInterceptor } from '././core/interceptors/error.interceptor';
 import { MatDialogModule } from '@angular/material/dialog'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +21,9 @@ export const appConfig: ApplicationConfig = {
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     provideNativeDateAdapter(),
     provideAnimations(),
-    importProvidersFrom(MatDialogModule)
+    importProvidersFrom(MatDialogModule,
+      MatDatepickerModule,
+      MatSnackBarModule
+    )
   ]
 };

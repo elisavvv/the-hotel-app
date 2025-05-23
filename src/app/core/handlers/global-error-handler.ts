@@ -13,9 +13,6 @@ export class GlobalErrorHandler implements ErrorHandler {
     if (error instanceof Error) {
       notificationService.showError('Произошла непредвиденная ошибка');
     }
-    
-    // В продакшене можно добавить отправку ошибок на сервер
-    // this.logErrorToServer(error);
   }
 
   private logErrorToServer(error: any): void {
