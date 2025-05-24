@@ -36,7 +36,7 @@ server.post('/auth/register', (req, res) => {
     id: Date.now(),
     username,
     email,
-    password // В реальном проекте здесь должно быть хеширование!
+    password 
   };
 
   router.db.get('users').push(newUser).write();

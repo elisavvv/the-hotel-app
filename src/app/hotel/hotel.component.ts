@@ -33,15 +33,15 @@ export class HotelComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.loadData();
   }
 
-  logout() {
+  logout(): void{
     this.authService.logout();
   }
 
-  loadData() {
+  loadData(): void{
     this.hotelService.getHousingLocations().pipe(
       tap(() => this.isLoading = false)
     ).subscribe({
@@ -56,9 +56,10 @@ export class HotelComponent implements OnInit {
     });
   }
 
-  filterLocations() {
+  filterLocations(): void{
     if (!this.searchText) {
       this.filteredLocations = this.housingLocations;
+
       return;
     }
     this.filteredLocations = this.housingLocations.filter(location =>

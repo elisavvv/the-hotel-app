@@ -11,11 +11,30 @@ export interface HousingLocation {
   price: number;
   features: string[];
 }
+export interface Room {
+  id: number;
+  name: string;
+  price: number;
+}
+
+export interface HotelServiceItem {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+  price: number;
+  duration: string;
+}
+
+export interface BookingResponse {
+  success: boolean;
+}
 
 @Injectable({ providedIn: 'root' }) // Автоматически регистрируем сервис
 export class HotelService {
-  constructor(private http: HttpClient) {}
   private bookings: any[] = []; // Mock-база бронирований
+
+  constructor(private http: HttpClient) {}
 
   // Метод для загрузки данных (с имитацией API через `delay`)
   getHousingLocations(): Observable<HousingLocation[]> {
@@ -70,14 +89,15 @@ export class HotelService {
   // Метод для фильтрации 
   filterLocations(searchText: string, locations: HousingLocation[]): HousingLocation[] {
     if (!searchText) return locations;
+
     return locations.filter(loc => 
       loc.name.toLowerCase().includes(searchText.toLowerCase()) ||
       loc.description.toLowerCase().includes(searchText.toLowerCase())
     );
   }
   //Получаем номер по ID
-  getRoomById(id: number) {
-    const mockRooms = [
+  getRoomById(id: number): Observable<Room | undefined> {
+    const mockRooms: Room[] = [
       { id: 1, name: 'Одноместный номер', price: 5000 },
       { id: 2, name: 'Двухместный номер', price: 8000 },
       { id: 3, name: 'Трехместный номер', price: 10000 },
@@ -85,16 +105,18 @@ export class HotelService {
       { id: 5, name: 'Президентский люкс', price: 25000 },
       
     ];
+
     return of(mockRooms.find(room => room.id === +id)).pipe(delay(500));
   }
 
   // Отправка бронирования
-  bookRoom(bookingData: any) {
+  bookRoom(bookingData: any): Observable<BookingResponse> {
     this.bookings.push(bookingData); // Сохраняем в mock-массив
+
     return of({ success: true }).pipe(delay(1000)); // Имитация API
   }
-  getHotelServices() {
-    const services = [
+  getHotelServices(): Observable<HotelServiceItem[]> {
+    const services: HotelServiceItem[] = [
       { 
         id: 1, 
         name: 'SPA-комплекс', 
@@ -112,6 +134,7 @@ export class HotelService {
         duration: 'В одну сторону'
       }
     ];
+
     return of(services).pipe(delay(300)); // Имитация загрузки
   }
 }

@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:3000/auth';
+  //private readonly API_URL = 'http://localhost:3000/auth';
+  private readonly apiUrl = 'http://localhost:3000/auth';
   private authStatus = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -19,7 +20,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<{token: string}> {
-    return this.http.post<{token: string}>(`${this.API_URL}/login`, { username, password })
+    return this.http.post<{token: string}>(`${this.apiUrl}/login`, { username, password })
       .pipe(
         tap(response => {
           localStorage.setItem('token', response.token);
@@ -32,7 +33,7 @@ export class AuthService {
 
 // обновляем метод register:
   register(username: string, email: string, password: string): Observable<{token: string}> {
-    return this.http.post<{token: string}>(`${this.API_URL}/register`, { 
+    return this.http.post<{token: string}>(`${this.apiUrl}/register`, { 
       username, 
       email, 
       password 
@@ -53,7 +54,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
   
-  logout() {
+  logout(): void{
     localStorage.removeItem('token');
     this.authStatus.next(false);
     this.router.navigate(['/login']); // Перенаправление при выходе

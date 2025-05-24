@@ -1,7 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  
   "version": 1,
   "newProjectRoot": "projects",
+  "cli": {
+    "analytics": false,
+    "schematicCollections": ["@angular-eslint/schematics"]
+  },
   "projects": {
     "HotelApp": {
       "projectType": "application",
@@ -113,8 +118,15 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
-              "src/**/*.html"
+              "src/**/*.component.html",
+              "src/**/*.html",
+              "src/**/*.directive.html"
             ]
+          },
+          "configurations": {
+            "fix": {
+              "fix": true
+            }
           }
         }
       }

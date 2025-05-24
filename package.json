@@ -8,8 +8,9 @@
     "start": "node server.js",
     "json-server": "json-server --watch db.json --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint",
-    "lint:fix": "eslint . --fix"
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "lint:style": "eslint 'src/**/*.ts' --fix"
   },
   "dependencies": {
     "@angular/cdk": "^19.2.16",
@@ -26,20 +27,22 @@
     "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.12",
-    "@angular-eslint/builder": "^16.2.0",
-    "@angular-eslint/eslint-plugin": "^16.2.0",
-    "@angular-eslint/eslint-plugin-template": "^16.2.0",
-    "@angular-eslint/schematics": "^16.2.0",
-    "@types/express": "^4.17.21",
-    "@types/jasmine": "^5.1.8",
-    "@types/jasminewd2": "^2.0.13",
-    "@types/node": "^20.11.19",
-    "@typescript-eslint/eslint-plugin": "^8.32.1",
-    "@typescript-eslint/parser": "^8.32.1",
-    "angular-eslint": "19.4.0",
-    "eslint": "^8.56.0",
-    "typescript": "^5.8.3"
+    "@angular-builders/jest": "^19.0.1",
+    "@angular-eslint/builder": "^19.4.0",
+    "@angular-eslint/eslint-plugin": "^19.4.0",
+    "@angular-eslint/eslint-plugin-template": "^19.4.0",
+    "@angular-eslint/template-parser": "^19.4.0",
+    "@angular/cli": "^19.2.13",
+    "@schematics/angular": "^19.2.13",
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "typescript": "~5.5.3"
+  },
+  "resolutions": {
+    "@typescript-eslint/typescript-estree": "7.8.0"
   },
   "repository": {
     "type": "git",

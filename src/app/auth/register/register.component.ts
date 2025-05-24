@@ -60,12 +60,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   `]
 })
 export class RegisterComponent {
-  private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
-  private router = inject(Router);
 
   registerForm: FormGroup;
   errorMessage = '';
+
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   constructor() {
     this.registerForm = this.fb.group({
@@ -76,7 +77,7 @@ export class RegisterComponent {
   }
 
 // обновляем onSubmit:
-  onSubmit() {
+  onSubmit(): void{
     if (this.registerForm.valid) {
       const { username, email, password } = this.registerForm.value;
       this.authService.register(username!, email!, password!).subscribe({
@@ -89,5 +90,5 @@ export class RegisterComponent {
         }
       });
     }
-}
+  }
 }

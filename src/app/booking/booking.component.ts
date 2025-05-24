@@ -74,6 +74,7 @@ export class BookingComponent implements OnInit {
   // Фильтр дат (только будущие даты)
   dateFilter = (d: Date | null): boolean => {
     const day = (d || new Date());
+
     return day >= this.minDate && day <= this.maxDate;
   };
 
@@ -84,6 +85,7 @@ export class BookingComponent implements OnInit {
     if (start && end && new Date(start) > new Date(end)) {
       return { 'dateRange': true }; // Используем строковый ключ
     }
+
     return null;
   }
   // Обновление отображения дат
@@ -111,10 +113,11 @@ export class BookingComponent implements OnInit {
     }).format(date).replace(/\./g, '.');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
+
         return this.hotelService.getRoomById(Number(id));
       })
     ).subscribe(room => {
@@ -122,7 +125,7 @@ export class BookingComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.bookingForm.valid) {
       const formValue = {
         ...this.bookingForm.value,
@@ -143,6 +146,7 @@ export class BookingComponent implements OnInit {
     const start = new Date(this.bookingForm.value.dateRange.start);
     const end = new Date(this.bookingForm.value.dateRange.end);
     const diffTime = Math.abs(end.getTime() - start.getTime());
+
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 
