@@ -6,16 +6,27 @@
     <a mat-button routerLink="/" class="nav-button">Главная</a>
     <a mat-button routerLink="/services" class="nav-button">Услуги</a>
     <a mat-button routerLink="/booking/1" class="nav-button">Бронирование</a>
+    <a mat-button routerLink="/contacts" class="nav-button">Контакты</a>
+    <a mat-button routerLink="/feedback" class="nav-button">Отзывы</a>
   </nav>
 
   <span class="spacer"></span>
 
-  <button *ngIf="isAuthenticated$ | async" mat-button (click)="logout()">
-    <mat-icon>logout</mat-icon> Выход
-  </button>
-</mat-toolbar>
+  <ng-container *ngIf="(isAuthenticated$ | async); else loginButton">
+    <button mat-button (click)="logout()">
+      <mat-icon>logout</mat-icon> Выход
+    </button>
+  </ng-container>
+
+  <ng-template #loginButton>
+    <a mat-button routerLink="/login" class="nav-button">Вход</a>
+  </ng-template>
+  </mat-toolbar>
 
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>
+
+
+
 

@@ -33,6 +33,7 @@ export interface BookingResponse {
 @Injectable({ providedIn: 'root' }) // Автоматически регистрируем сервис
 export class HotelService {
   private bookings: any[] = []; // Mock-база бронирований
+  private selectedServices: HotelServiceItem[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -132,10 +133,43 @@ export class HotelService {
         photo: 'assets/images/transfer.jpg',
         price: 1500,
         duration: 'В одну сторону'
+      },
+      {
+        id: 3,
+        name: 'Экскурсии по Дубаю',
+        description: 'Авторские экскурсии с профессиональным гидом',
+        photo: 'assets/images/exursion.jpg',
+        price: 4500,
+        duration: '4 часа'
+      },
+      {
+        id: 4,
+        name: 'Персональный консьерж',
+        description: 'Организация ресторанов, билетов и мероприятий',
+        photo: 'assets/images/concierge.jpg',
+        price: 7000,
+        duration: '1 день'
+      },
+      {
+        id: 5,
+        name: 'Детский клуб',
+        description: 'Профессиональный присмотр за детьми с развлекательной программой',
+        photo: 'assets/images/kids-club.jpg',
+        price: 2500,
+        duration: '3 часа'
       }
     ];
 
     return of(services).pipe(delay(300)); // Имитация загрузки
+  }
+  setSelectedServices(services: HotelServiceItem[]): void {
+    this.selectedServices = services;
+  }
+  getSelectedServices(): HotelServiceItem[] {
+    return this.selectedServices;
+  }
+  clearSelectedServices(): void {
+    this.selectedServices = [];
   }
 }
 

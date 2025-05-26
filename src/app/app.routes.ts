@@ -2,25 +2,30 @@ import { Routes } from '@angular/router';
 import { BookingComponent } from './booking/booking.component';
 import { ServicesComponent } from './services/services.component';
 import { LoginComponent } from './auth/login/login.component';
-import { authGuard } from './auth/auth.guard';
 import { RegisterComponent } from './auth/register/register.component';
 import { HotelComponent } from './hotel/hotel.component';
-import { HotelRoomsComponent } from './hotel-rooms/hotel-rooms.component'; 
+import { HotelRoomsComponent } from './hotel-rooms/hotel-rooms.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import {FeedbackComponent} from './feedback/feedback.component';
+import { ServiceConstructorComponent } from './service-constructor/service-constructor.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'services', component: ServicesComponent, title: 'Услуги' },
-  { path: 'booking/:id', component: BookingComponent, canActivate: [authGuard] },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
-  { path: 'register', component: RegisterComponent },
   { 
     path: '', 
     component: HotelComponent,
-    canActivate: [authGuard],
     children: [
-      { path: '', component: HotelRoomsComponent }
+      { path: '', component: HotelRoomsComponent, title: 'Главная' }
     ]
   },
-  { path: '**', redirectTo: '' }
+  { path: 'services', component: ServicesComponent, title: 'Услуги' },
+  { path: 'booking/:id', component: BookingComponent, title: 'Бронирование' },
+  { path: 'booking', component: BookingComponent },
+  { path: 'service-constructor', component: ServiceConstructorComponent, title: 'Конструктор услуг' },
+  { path: 'contacts', component: ContactsComponent, title: 'Контакты' },
+  { path: 'login', component: LoginComponent, title: 'Вход в систему' },
+  { path: 'register', component: RegisterComponent, title: 'Регистрация' },
+  { path: 'feedback', component: FeedbackComponent, title: 'Оставить отзыв'},
+  { path: '**', redirectTo: '' } // Перенаправление на главную для несуществующих маршрутов
 ];
+
+

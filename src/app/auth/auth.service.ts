@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  //private readonly API_URL = 'http://localhost:3000/auth';
   private readonly apiUrl = 'http://localhost:3000/auth';
   private authStatus = new BehaviorSubject<boolean>(false);
 
@@ -60,6 +59,7 @@ export class AuthService {
     this.router.navigate(['/login']); // Перенаправление при выходе
   }
 }
+
 
 
 

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HotelService } from '../services/hotel.service';
 import { switchMap } from 'rxjs/operators';
 import { DateAdapter } from '@angular/material/core';
+import { HotelServiceItem } from '../services/hotel.service';
 
 // Material Modules
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -39,6 +40,8 @@ export class BookingComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   dateRangeDisplay: string = '';
+  selectedServices: HotelServiceItem[] = [];
+  totalPrice: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -123,6 +126,8 @@ export class BookingComponent implements OnInit {
     ).subscribe(room => {
       this.room = room;
     });
+    this.selectedServices = this.hotelService.getSelectedServices();
+    this.calculateTotal();
   }
 
   onSubmit(): void {
@@ -152,5 +157,10 @@ export class BookingComponent implements OnInit {
 
   calculateTotalPrice(): number {
     return this.calculateDays() * this.room.price;
+  }
+  calculateTotal() {
+    this.totalPrice = this.selectedServices.reduce(
+      (sum, service) => sum + service.price, 0
+    );
   }
 }
