@@ -8,6 +8,7 @@
        [cdkDropListData]="services"
        [cdkDropListConnectedTo]="['selectedServicesList']"
        (cdkDropListDropped)="drop($event)">
+       
     <div *ngFor="let service of services" 
          class="service-card" 
          cdkDrag>
@@ -31,11 +32,14 @@
   <!-- Выбранные услуги -->
   <div class="selected-services">
     <h3>Выбранные услуги</h3>
-    <div class="selected-list" 
+    
+    <div *ngIf="selectedServices.length > 0; else emptySelection"
+         class="selected-list" 
          cdkDropList
          id="selectedServicesList"
          [cdkDropListData]="selectedServices"
          (cdkDropListDropped)="drop($event)">
+         
       <div *ngFor="let service of selectedServices" 
            class="service-card selected" 
            cdkDrag>
@@ -55,5 +59,11 @@
         </div>
       </div>
     </div>
+    
+    <ng-template #emptySelection>
+      <div class="empty-selection">
+        <p>Перетащите сюда услуги из списка</p>
+      </div>
+    </ng-template>
   </div>
 </div>

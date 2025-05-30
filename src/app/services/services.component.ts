@@ -38,7 +38,7 @@ export class ServicesComponent implements OnInit {
     service.photo = 'assets/images/default.jpg'; // Обновляем свойство в объекте
   }
   drop(event: CdkDragDrop<HotelServiceItem[]>) {
-    if (!event.container.data || !event.previousContainer.data) return;
+    if (!event.container.data || !event.previousContainer.data){ return;}
 
     if (event.previousContainer === event.container) {
       // Перемещение внутри одного списка
