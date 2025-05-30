@@ -13,7 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes), // Guard уже подключен в маршрутах
     provideHttpClient(
       withInterceptors([authInterceptor, errorInterceptor])
     ),
@@ -23,6 +23,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(MatDialogModule,
       MatDatepickerModule,
       MatSnackBarModule
-    )
+    ),
   ]
 };
