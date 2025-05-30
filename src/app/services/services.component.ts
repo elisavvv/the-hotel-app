@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject  } from '@angular/core';
 import { HotelService, HotelServiceItem  } from '../services/hotel.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface HousingLocation {
   id: number;
@@ -22,14 +23,20 @@ export interface HousingLocation {
   styleUrl: './services.component.css'
 })
 export class ServicesComponent implements OnInit {
-  services$!: Observable<HotelServiceItem[]>; // Объявляем свойство без инициализации
+  services$: Observable<HotelServiceItem[]> = of([]);
   selectedServices: HotelServiceItem[] = [];
+  private destroyRef = inject(DestroyRef); // Инжектируем DestroyRef
 
   constructor(private hotelService: HotelService) {} // Сначала получаем сервис
 
   ngOnInit(): void {
-    this.services$ = this.hotelService.getHotelServices(); // Затем инициализируем
-    //this.services$.subscribe(services => console.log('Services data:', services));
+    this.services$ = this.hotelService.getHotelServices();
+    
+    // Подписка с автоматической отпиской
+    this.services$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(services => console.log('Services data:', services));
+    
     this.selectedServices = this.hotelService.getSelectedServices();
   }
   handleImageError(event: Event, service: HotelServiceItem): void {

@@ -1,9 +1,9 @@
-// src/app/auth/register/register.component.ts
-import { Component, inject } from '@angular/core';
+import { Component, inject, DestroyRef} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -67,6 +67,7 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef); // Добавляем DestroyRef
 
   constructor() {
     this.registerForm = this.fb.group({
@@ -76,19 +77,20 @@ export class RegisterComponent {
     });
   }
 
-// обновляем onSubmit:
-  onSubmit(): void{
+
+  onSubmit(): void {
     if (this.registerForm.valid) {
       const { username, email, password } = this.registerForm.value;
-      this.authService.register(username!, email!, password!).subscribe({
-        next: (response) => {
-          // Автоматическая авторизация после регистрации
-          this.router.navigate(['/']);
-        },
-        error: (err: HttpErrorResponse) => {
-          this.errorMessage = err.error?.message || 'Ошибка регистрации';
-        }
-      });
+      this.authService.register(username!, email!, password!)
+        .pipe(takeUntilDestroyed(this.destroyRef)) // Добавляем автоматическую отписку
+        .subscribe({
+          next: (response) => {
+            this.router.navigate(['/']);
+          },
+          error: (err: HttpErrorResponse) => {
+            this.errorMessage = err.error?.message || 'Ошибка регистрации';
+          }
+        });
     }
   }
 }

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HotelService } from '../services/hotel.service';
-import { switchMap } from 'rxjs/operators';
+import { HotelService, HotelServiceItem } from '../services/hotel.service';
+import { switchMap} from 'rxjs/operators';
 import { DateAdapter } from '@angular/material/core';
-import { HotelServiceItem } from '../services/hotel.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 // Material Modules
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -42,6 +42,7 @@ export class BookingComponent implements OnInit {
   dateRangeDisplay: string = '';
   selectedServices: HotelServiceItem[] = [];
   totalPrice: number = 0;
+  private destroyRef = inject(DestroyRef); // Добавляем DestroyRef
 
   constructor(
     private route: ActivatedRoute,
@@ -68,10 +69,12 @@ export class BookingComponent implements OnInit {
     }, { validators: [this.dateRangeValidator] })
   });
 
-    // Обновляем отображение дат при изменениях
-    this.bookingForm.get('dateRange')?.valueChanges.subscribe(() => {
-      this.updateDateDisplay();
-    });
+    // Обновляем подписку с takeUntilDestroyed
+    this.bookingForm.get('dateRange')?.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.updateDateDisplay();
+      });
   }
 
   // Фильтр дат (только будущие даты)
@@ -117,15 +120,18 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Обновляем подписку на параметры маршрута
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
-
         return this.hotelService.getRoomById(Number(id));
-      })
+      }),
+      takeUntilDestroyed(this.destroyRef) // Добавляем автоматическую отписку
     ).subscribe(room => {
       this.room = room;
     });
+
+    // Обновляем подписку на бронирование
     this.selectedServices = this.hotelService.getSelectedServices();
     this.calculateTotal();
   }
@@ -141,9 +147,11 @@ export class BookingComponent implements OnInit {
         totalPrice: this.calculateTotalPrice()
       };
       
-      this.hotelService.bookRoom(formValue).subscribe(() => {
-        alert(`Бронирование успешно оформлено! С ${this.formatDate(new Date(formValue.startDate))} по ${this.formatDate(new Date(formValue.endDate))}`);
-      });
+      this.hotelService.bookRoom(formValue)
+        .pipe(takeUntilDestroyed(this.destroyRef)) // Добавляем для HTTP-запроса
+        .subscribe(() => {
+          alert(`Бронирование успешно оформлено! С ${this.formatDate(new Date(formValue.startDate))} по ${this.formatDate(new Date(formValue.endDate))}`);
+        });
     }
   }
 
