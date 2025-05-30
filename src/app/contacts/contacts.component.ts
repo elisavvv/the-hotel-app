@@ -20,13 +20,14 @@ export class ContactsComponent implements AfterViewInit {
     // Проверяем, не загружен ли API уже
     if (typeof ymaps !== 'undefined') {
       this.initMap();
+
       return;
     }
 
     // Создаем и добавляем script-тег
     const script = document.createElement('script');
     script.src = `https://api-maps.yandex.ru/2.1/?apikey=${this.apiKey}&lang=ru_RU`;
-    script.onload = () => this.initMap();
+    script.onload = (): void => this.initMap();
     document.body.appendChild(script);
   }
 

@@ -158,7 +158,7 @@ export class BookingComponent implements OnInit {
   calculateTotalPrice(): number {
     return this.calculateDays() * this.room.price;
   }
-  calculateTotal() {
+  calculateTotal(): void {
     this.totalPrice = this.selectedServices.reduce(
       (sum, service) => sum + service.price, 0
     );

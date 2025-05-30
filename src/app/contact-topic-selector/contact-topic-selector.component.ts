@@ -34,7 +34,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 
 export class ContactTopicSelectorComponent implements ControlValueAccessor {
-  @Input() topics: { value: string; label: string }[] = []; // Добавьте этот Input
+  @Input() topics: Array<{ value: string; label: string }> = []; // Добавьте этот Input
   value: string = '';
   disabled = false;
   onChange: (value: string) => void = () => {};
