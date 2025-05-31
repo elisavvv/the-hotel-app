@@ -8,21 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   selector: 'app-contact-topic-selector',
   standalone: true,
   imports: [CommonModule, FormsModule, MatSelectModule, MatFormFieldModule],
-  template: `
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Тема обращения</mat-label>
-      <mat-select 
-        [(ngModel)]="value"
-        (ngModelChange)="onChange($event)"
-        (blur)="onTouched()"
-        [disabled]="disabled"
-      >
-        <mat-option *ngFor="let topic of topics" [value]="topic.value">
-          {{ topic.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  `,
+  templateUrl:'./contact-topic-selector.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -61,6 +61,7 @@ export class HotelComponent implements OnInit {
   filterLocations(): void {
     if (!this.searchText) {
       this.filteredLocations = this.housingLocations;
+
       return;
     }
     this.filteredLocations = this.housingLocations.filter(location =>

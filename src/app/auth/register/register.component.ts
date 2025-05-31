@@ -22,42 +22,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatButtonModule,
     RouterLink
   ],
-  template: `
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <mat-card class="register-card">
-        <mat-card-header>
-          <mat-card-title>Регистрация</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-form-field>
-            <input matInput placeholder="Имя пользователя" formControlName="username" required>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="email" placeholder="Email" formControlName="email" required>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="password" placeholder="Пароль" formControlName="password" required>
-          </mat-form-field>
-          <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit">Зарегистрироваться</button>
-          <a mat-button routerLink="/login">Уже есть аккаунт? Войти</a>
-        </mat-card-actions>
-      </mat-card>
-    </form>
-  `,
-  styles: [`
-    .register-card {
-      max-width: 400px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-    .error {
-      color: red;
-      margin: 1rem 0;
-    }
-  `]
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'] 
 })
 export class RegisterComponent {
 

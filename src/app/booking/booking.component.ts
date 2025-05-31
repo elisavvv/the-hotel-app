@@ -124,6 +124,7 @@ export class BookingComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
+
         return this.hotelService.getRoomById(Number(id));
       }),
       takeUntilDestroyed(this.destroyRef) // Добавляем автоматическую отписку

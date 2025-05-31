@@ -1,19 +1,5 @@
 
-import { RouterModule, Routes } from '@angular/router';
-/*import { NgModule } from '@angular/core';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-
-const routes: Routes = [
-  { path: 'login', component: LoginComponent, title: 'Вход в систему' },
-  { path: 'register', component: RegisterComponent, title: 'Регистрация' }
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AuthRoutingModule { }*/
+import { Routes } from '@angular/router';
 export const routes: Routes = [
   { 
     path: 'login', 

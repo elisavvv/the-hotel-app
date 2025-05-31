@@ -24,8 +24,7 @@ export class AuthService {
         tap(response => {
           localStorage.setItem('token', response.token);
           this.authStatus.next(true);
-          /*this.router.navigate(['/booking']);*/
-          this.router.navigate(['/']); // Теперь router доступен
+          this.router.navigate(['/']); 
         })
       );
   }
