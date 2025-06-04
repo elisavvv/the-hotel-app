@@ -6,7 +6,6 @@
     
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <!-- Поле имени пользователя с иконкой -->
         <mat-form-field appearance="fill">
           <mat-label>Имя пользователя</mat-label>
           <mat-icon matPrefix>person</mat-icon>
@@ -16,7 +15,6 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- Поле пароля с toggle видимости -->
         <mat-form-field appearance="fill">
           <mat-label>Пароль</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
@@ -29,13 +27,11 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- Блок ошибки (оставлен один вместо двух) -->
         <div *ngIf="errorMessage" class="error-message">
           <mat-icon>error</mat-icon>
           {{ errorMessage }}
         </div>
 
-        <!-- Кнопки действий -->
         <mat-card-actions>
           <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
             <mat-icon>login</mat-icon>

@@ -33,7 +33,7 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  private destroyRef = inject(DestroyRef); // Добавляем DestroyRef
+  private destroyRef = inject(DestroyRef); 
 
   constructor() {
     this.registerForm = this.fb.group({
@@ -48,7 +48,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       const { username, email, password } = this.registerForm.value;
       this.authService.register(username!, email!, password!)
-        .pipe(takeUntilDestroyed(this.destroyRef)) // Добавляем автоматическую отписку
+        .pipe(takeUntilDestroyed(this.destroyRef)) 
         .subscribe({
           next: (response) => {
             this.router.navigate(['/']);

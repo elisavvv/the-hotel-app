@@ -11,7 +11,6 @@
 
   <mat-card-content>
     <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-      <!-- Поле имени -->
       <mat-form-field appearance="outline">
         <mat-label>Ваше имя</mat-label>
         <input matInput formControlName="name" placeholder="Иван Иванов">
@@ -20,7 +19,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Поле email -->
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" type="email" placeholder="example@mail.com">
@@ -32,7 +30,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Группа дат -->
       <div formGroupName="dateRange">
         <mat-form-field appearance="outline">
           <mat-label>Дата заезда</mat-label>
@@ -59,7 +56,6 @@
         Дата выезда должна быть после даты заезда
       </mat-error>
 
-      <!-- Кнопка отправки -->
       <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid">
         <mat-icon>check</mat-icon> Забронировать
       </button>

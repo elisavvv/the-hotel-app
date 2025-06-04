@@ -6,7 +6,6 @@ import { switchMap} from 'rxjs/operators';
 import { DateAdapter } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-// Material Modules
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -42,7 +41,7 @@ export class BookingComponent implements OnInit {
   dateRangeDisplay: string = '';
   selectedServices: HotelServiceItem[] = [];
   totalPrice: number = 0;
-  private destroyRef = inject(DestroyRef); // Добавляем DestroyRef
+  private destroyRef = inject(DestroyRef); 
 
   constructor(
     private route: ActivatedRoute,
@@ -50,13 +49,10 @@ export class BookingComponent implements OnInit {
     private fb: FormBuilder,
     private dateAdapter: DateAdapter<Date>
   ) {
-    // Устанавливаем русскую локаль для дат
     this.dateAdapter.setLocale('ru-RU');
 
-    // Минимальная дата - сегодня
     this.minDate = new Date();
-    
-    // Максимальная дата - +1 год от сегодня
+
     const currentYear = new Date().getFullYear();
     this.maxDate = new Date(currentYear + 1, 11, 31);
 
@@ -69,7 +65,6 @@ export class BookingComponent implements OnInit {
     }, { validators: [this.dateRangeValidator] })
   });
 
-    // Обновляем подписку с takeUntilDestroyed
     this.bookingForm.get('dateRange')?.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
@@ -77,7 +72,6 @@ export class BookingComponent implements OnInit {
       });
   }
 
-  // Фильтр дат (только будущие даты)
   dateFilter = (d: Date | null): boolean => {
     const day = (d || new Date());
 
@@ -89,12 +83,12 @@ export class BookingComponent implements OnInit {
     const end = group.get('end')?.value;
     
     if (start && end && new Date(start) > new Date(end)) {
-      return { 'dateRange': true }; // Используем строковый ключ
+      return { 'dateRange': true }; 
     }
 
     return null;
   }
-  // Обновление отображения дат
+
   updateDateDisplay(): void {
     const start = this.bookingForm.get('dateRange.start')?.value;
     const end = this.bookingForm.get('dateRange.end')?.value;
@@ -110,7 +104,7 @@ export class BookingComponent implements OnInit {
     }
   }
 
-  // Форматирование даты в "дд.мм.гг"
+
   formatDate(date: Date): string {
     return new Intl.DateTimeFormat('ru-RU', {
       day: '2-digit',
@@ -120,19 +114,19 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Обновляем подписку на параметры маршрута
+
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
 
         return this.hotelService.getRoomById(Number(id));
       }),
-      takeUntilDestroyed(this.destroyRef) // Добавляем автоматическую отписку
+      takeUntilDestroyed(this.destroyRef) 
     ).subscribe(room => {
       this.room = room;
     });
 
-    // Обновляем подписку на бронирование
+
     this.selectedServices = this.hotelService.getSelectedServices();
     this.calculateTotal();
   }
@@ -149,7 +143,7 @@ export class BookingComponent implements OnInit {
       };
       
       this.hotelService.bookRoom(formValue)
-        .pipe(takeUntilDestroyed(this.destroyRef)) // Добавляем для HTTP-запроса
+        .pipe(takeUntilDestroyed(this.destroyRef)) 
         .subscribe(() => {
           alert(`Бронирование успешно оформлено! С ${this.formatDate(new Date(formValue.startDate))} по ${this.formatDate(new Date(formValue.endDate))}`);
         });

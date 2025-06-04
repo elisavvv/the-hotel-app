@@ -9,7 +9,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([authInterceptor]) // Подключаем интерсептор
+      withInterceptors([authInterceptor]) 
     )
   ]
 }).catch(err => console.error(err));

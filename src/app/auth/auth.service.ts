@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router // Добавлен Router в конструктор
+    private router: Router 
   ) {
     this.authStatus.next(!!this.getToken());
   }
@@ -29,7 +29,6 @@ export class AuthService {
       );
   }
 
-// обновляем метод register:
   register(username: string, email: string, password: string): Observable<{token: string}> {
     return this.http.post<{token: string}>(`${this.apiUrl}/register`, { 
       username, 
@@ -55,7 +54,7 @@ export class AuthService {
   logout(): void{
     localStorage.removeItem('token');
     this.authStatus.next(false);
-    this.router.navigate(['/login']); // Перенаправление при выходе
+    this.router.navigate(['/login']); 
   }
 }
 

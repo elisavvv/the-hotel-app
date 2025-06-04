@@ -25,14 +25,13 @@ export interface HousingLocation {
 export class ServicesComponent implements OnInit {
   services$: Observable<HotelServiceItem[]> = of([]);
   selectedServices: HotelServiceItem[] = [];
-  private destroyRef = inject(DestroyRef); // Инжектируем DestroyRef
+  private destroyRef = inject(DestroyRef);
 
-  constructor(private hotelService: HotelService) {} // Сначала получаем сервис
+  constructor(private hotelService: HotelService) {}
 
   ngOnInit(): void {
     this.services$ = this.hotelService.getHotelServices();
     
-    // Подписка с автоматической отпиской
     this.services$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(services => console.log('Services data:', services));
@@ -41,28 +40,25 @@ export class ServicesComponent implements OnInit {
   }
   handleImageError(event: Event, service: HotelServiceItem): void {
     const img = event.target as HTMLImageElement;
-    img.src = 'assets/images/default.jpg'; // Путь к дефолтному изображению
-    service.photo = 'assets/images/default.jpg'; // Обновляем свойство в объекте
+    img.src = 'assets/images/default.jpg'; 
+    service.photo = 'assets/images/default.jpg';
   }
   drop(event: CdkDragDrop<HotelServiceItem[]>): void {
     if (!event.container.data || !event.previousContainer.data){ return;}
 
     if (event.previousContainer === event.container) {
-      // Перемещение внутри одного списка
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
     } else {
-      // Перемещение между списками
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
-      // Сохраняем выбранные услуги
       this.hotelService.setSelectedServices(this.selectedServices);
     }
   }

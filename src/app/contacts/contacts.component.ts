@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 
-declare const ymaps: any; // Объявляем для TypeScript
+declare const ymaps: any; 
 
 @Component({
   selector: 'app-contacts',
@@ -9,8 +9,8 @@ declare const ymaps: any; // Объявляем для TypeScript
   styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent implements AfterViewInit {
-  private apiKey = '365f5c07-2456-4938-a81c-b04acec14b9a'; // Замените на реальный ключ
-  private hotelCoords = [25.113424, 55.192661]; // Координаты отеля (Москва, пример)
+  private apiKey = '365f5c07-2456-4938-a81c-b04acec14b9a'; 
+  private hotelCoords = [25.113424, 55.192661]; 
 
   ngAfterViewInit(): void {
     this.loadYandexMap();
@@ -24,7 +24,6 @@ export class ContactsComponent implements AfterViewInit {
       return;
     }
 
-    // Создаем и добавляем script-тег
     const script = document.createElement('script');
     script.src = `https://api-maps.yandex.ru/2.1/?apikey=${this.apiKey}&lang=ru_RU`;
     script.onload = (): void => this.initMap();
@@ -39,7 +38,6 @@ export class ContactsComponent implements AfterViewInit {
         controls: ['zoomControl']
       });
 
-      // Добавляем метку отеля
       const placemark = new ymaps.Placemark(
         this.hotelCoords,
         {

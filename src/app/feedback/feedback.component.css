@@ -51,7 +51,6 @@
   width: 100%;
 }
 
-/* Стили для рейтинга */
 .rating-container {
   display: flex;
   flex-direction: column;
@@ -73,7 +72,6 @@
   color: #ffc107;
 }
 
-/* Кнопка отправки */
 .submit-button {
   align-self: flex-end;
   padding: 0.5rem 2rem;
@@ -87,7 +85,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Анимации */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -97,7 +94,6 @@
   animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* Адаптивность */
 @media (max-width: 600px) {
   .feedback-card {
     margin: 1rem;

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './auth/auth.service';
 import { Observable } from 'rxjs';
 
-// Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     RouterModule,
-    // Material Modules
     MatToolbarModule,
     MatButtonModule,
     MatIconModule

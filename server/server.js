@@ -6,11 +6,9 @@ const middlewares = jsonServer.defaults();
 
 const SECRET_KEY = 'your-strong-secret-key-123';
 
-// Middleware
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-// CORS
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
@@ -18,11 +16,9 @@ server.use((req, res, next) => {
   next();
 });
 
-// Эндпоинт регистрации (без bcrypt)
 server.post('/auth/register', (req, res) => {
   const { username, email, password } = req.body;
   
-  // Простая валидация
   if (!username || !email || !password) {
     return res.status(400).json({ message: 'Все поля обязательны' });
   }
@@ -45,7 +41,6 @@ server.post('/auth/register', (req, res) => {
   res.json({ token });
 });
 
-// Эндпоинт входа (без bcrypt)
 server.post('/auth/login', (req, res) => {
   const { username, password } = req.body;
   const user = router.db.get('users').find({ username, password }).value();
@@ -58,7 +53,6 @@ server.post('/auth/login', (req, res) => {
   }
 });
 
-// Защищённые маршруты
 server.use((req, res, next) => {
   if (req.path.startsWith('/auth')) return next();
   

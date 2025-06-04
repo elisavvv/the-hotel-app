@@ -69,10 +69,8 @@ export class ServiceConstructorComponent {
   }
 
   bookServices(): void {
-    // Сохраняем выбранные услуги в сервисе
     this.hotelService.setSelectedServices(this.selectedServices);
-    
-    // Переходим на страницу бронирования
+
     this.router.navigate(['/booking'], {
       state: { selectedServices: this.selectedServices }
     });

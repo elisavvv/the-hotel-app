@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject  } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-// Добавьте эти импорты:
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,7 +29,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage = '';
   hidePassword = true;
-  private destroyRef = inject(DestroyRef); // Добавляем DestroyRef
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private authService: AuthService,
@@ -49,7 +48,7 @@ export class LoginComponent {
       const { username, password } = this.loginForm.value;
       
       this.authService.login(username, password)
-        .pipe(takeUntilDestroyed(this.destroyRef)) // Добавляем автоматическую отписку
+        .pipe(takeUntilDestroyed(this.destroyRef)) 
         .subscribe({
           next: () => {
             this.router.navigate(['/']);

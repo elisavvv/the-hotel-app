@@ -1,7 +1,6 @@
 <h2>Дополнительные услуги</h2>
 
 <div class="services-container">
-  <!-- Доступные услуги -->
   <div *ngIf="services$ | async as services" 
        class="services-list" 
        cdkDropList
@@ -29,7 +28,6 @@
     </div>
   </div>
 
-  <!-- Выбранные услуги -->
   <div class="selected-services">
     <h3>Выбранные услуги</h3>
     

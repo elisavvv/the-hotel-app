@@ -4,7 +4,6 @@ import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 
 export default [
-  // Конфигурация для TypeScript файлов
   {
     files: ['**/*.ts'],
     plugins: {
@@ -20,7 +19,6 @@ export default [
       }
     },
     rules: {
-      // Правила Angular
       "@angular-eslint/prefer-standalone": "warn",
       "@angular-eslint/directive-selector": [
         "error",
@@ -39,7 +37,6 @@ export default [
         }
       ],
       
-      // Правила TypeScript
       "@typescript-eslint/member-ordering": "error",
       "@typescript-eslint/naming-convention": [
         "error",
@@ -104,8 +101,7 @@ export default [
       ],
       "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-shadow": "error",
-      
-      // Общие правила
+
       "padding-line-between-statements": [
         "error",
         {
@@ -124,7 +120,6 @@ export default [
       ]
     }
   },
-  // Конфигурация для HTML шаблонов
   {
     files: ['**/*.html'],
     plugins: {
@@ -132,11 +127,9 @@ export default [
     },
     processor: '@angular-eslint/template/extract-inline-html',
     rules: {
-      // Базовые правила для шаблонов
       "@angular-eslint/template/banana-in-box": "error",
       "@angular-eslint/template/no-negated-async": "error",
-      
-      // Отключенные правила
+
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-function": "off"
     }

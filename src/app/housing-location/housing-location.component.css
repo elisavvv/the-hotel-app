@@ -1,4 +1,3 @@
-/* Основной стиль карточки номера */
 .room-card {
     background: #ffffff;
     border-radius: 12px;
@@ -12,8 +11,7 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
   }
-  
-  /* Заголовок номера */
+
   .room-title {
     color: #2c3e50;
     padding: 12px 16px 0 16px;
@@ -21,24 +19,21 @@
     font-weight: 600;
     margin-bottom: 8px;
   }
-  
-  /* Фото номера */
+
   .room-photo {
     height: 200px;
     width: 100%;
     object-fit: cover;
     border-radius: 12px 12px 0 0;
   }
-  
-  /* Информация о номере */
+
   .room-details {
     padding: 0 16px 12px 16px;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  
-  /* Особенности номера */
+
   .room-features {
     display: flex;
     flex-wrap: wrap;
@@ -54,7 +49,6 @@
     margin: 2px;
   }
 
-  /* Цена */
   .room-price {
     font-weight: bold;
     color: #11A6E1;
@@ -77,15 +71,13 @@
   .book-button:hover {
     background: #0d8ec7;
   }
-  
-  /* Иконка вместо location-pin */
+
   .room-type::before {
     content: url("/assets/bed-icon.svg") / "";
     vertical-align: middle;
     margin-right: 6px;
   }
-  
-  /* Адаптивность */
+
   @media (max-width: 768px) {
     .room-photo {
       height: 160px;

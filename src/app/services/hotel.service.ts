@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, delay, of } from 'rxjs';
 
-// Тип для данных о номерах (можно вынести в отдельный файл)
 export interface HousingLocation {
   id: number;
   name: string;
@@ -30,17 +29,15 @@ export interface BookingResponse {
   success: boolean;
 }
 
-@Injectable({ providedIn: 'root' }) // Автоматически регистрируем сервис
+@Injectable({ providedIn: 'root' }) 
 export class HotelService {
-  private bookings: any[] = []; // Mock-база бронирований
+  private bookings: any[] = []; 
   private selectedServices: HotelServiceItem[] = [];
 
   constructor(private http: HttpClient) {}
 
-  // Метод для загрузки данных (с имитацией API через `delay`)
   getHousingLocations(): Observable<HousingLocation[]> {
 
-    // Имитируем API с задержкой 1 сек:
     const mockData: HousingLocation[] = [
       {
         id: 1,
@@ -84,10 +81,9 @@ export class HotelService {
       }
       ];
 
-    return of(mockData).pipe(delay(1000)); // Задержка для имитации сети
+    return of(mockData).pipe(delay(1000)); 
   }
 
-  // Метод для фильтрации 
   filterLocations(searchText: string, locations: HousingLocation[]): HousingLocation[] {
     if (!searchText) return locations;
 
@@ -96,7 +92,7 @@ export class HotelService {
       loc.description.toLowerCase().includes(searchText.toLowerCase())
     );
   }
-  //Получаем номер по ID
+
   getRoomById(id: number): Observable<Room | undefined> {
     const mockRooms: Room[] = [
       { id: 1, name: 'Одноместный номер', price: 5000 },
@@ -110,11 +106,11 @@ export class HotelService {
     return of(mockRooms.find(room => room.id === +id)).pipe(delay(500));
   }
 
-  // Отправка бронирования
-  bookRoom(bookingData: any): Observable<BookingResponse> {
-    this.bookings.push(bookingData); // Сохраняем в mock-массив
 
-    return of({ success: true }).pipe(delay(1000)); // Имитация API
+  bookRoom(bookingData: any): Observable<BookingResponse> {
+    this.bookings.push(bookingData); 
+
+    return of({ success: true }).pipe(delay(1000)); 
   }
   getHotelServices(): Observable<HotelServiceItem[]> {
     const services: HotelServiceItem[] = [
@@ -160,7 +156,7 @@ export class HotelService {
       }
     ];
 
-    return of(services).pipe(delay(300)); // Имитация загрузки
+    return of(services).pipe(delay(300)); 
   }
   setSelectedServices(services: HotelServiceItem[]): void {
     this.selectedServices = services;

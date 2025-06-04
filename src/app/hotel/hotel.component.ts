@@ -27,7 +27,7 @@ export class HotelComponent implements OnInit {
   housingLocations: HousingLocation[] = [];
   filteredLocations: HousingLocation[] = [];
   isLoading = true;
-  private destroyRef = inject(DestroyRef); // Добавляем DestroyRef
+  private destroyRef = inject(DestroyRef); 
 
   constructor(
     private hotelService: HotelService,
@@ -45,7 +45,7 @@ export class HotelComponent implements OnInit {
   loadData(): void {
     this.hotelService.getHousingLocations().pipe(
       tap(() => this.isLoading = false),
-      takeUntilDestroyed(this.destroyRef) // Добавляем автоматическую отписку
+      takeUntilDestroyed(this.destroyRef) 
     ).subscribe({
       next: (data) => {
         this.housingLocations = data;
