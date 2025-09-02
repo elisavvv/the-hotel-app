@@ -1,0 +1,65 @@
+<mat-card class="feedback-card mat-elevation-z8">
+  <mat-card-header class="header">
+    <div class="header-content">
+      <mat-icon class="header-icon">rate_review</mat-icon>
+      <div>
+        <mat-card-title class="title">Оставьте отзыв</mat-card-title>
+        <mat-card-subtitle class="subtitle">Ваше мнение делает нас лучше!</mat-card-subtitle>
+      </div>
+    </div>
+  </mat-card-header>
+
+  <mat-divider class="divider"></mat-divider>
+
+  <mat-card-content>
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" class="form-container">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Ваше имя</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="feedbackForm.get('name')?.invalid">Пожалуйста, введите ваше имя</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required>
+        <mat-icon matPrefix>email</mat-icon>
+        <mat-error *ngIf="feedbackForm.get('email')?.hasError('required')">Обязательное поле</mat-error>
+        <mat-error *ngIf="feedbackForm.get('email')?.hasError('email')">Введите корректный email</mat-error>
+      </mat-form-field>
+
+      <app-contact-topic-selector 
+        formControlName="topic"
+        [topics]="feedbackTopics">
+      </app-contact-topic-selector>
+
+      <div class="rating-container">
+        <span class="rating-label">Оцените ваш опыт:</span>
+        <mat-radio-group formControlName="rating" class="rating-options">
+          <mat-radio-button *ngFor="let star of [1,2,3,4,5]" [value]="star" color="primary">
+            <mat-icon>{{ star <= feedbackForm.get('rating')?.value ? 'star' : 'star_border' }}</mat-icon>
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Ваш отзыв</mat-label>
+        <textarea matInput formControlName="message" required rows="5"></textarea>
+        <mat-icon matPrefix>chat_bubble</mat-icon>
+        <mat-error *ngIf="feedbackForm.get('message')?.hasError('minlength')">
+          Отзыв должен содержать минимум 10 символов
+        </mat-error>
+      </mat-form-field>
+
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit"
+        [disabled]="!feedbackForm.valid"
+        class="submit-button">
+        <mat-icon>send</mat-icon>
+        Отправить отзыв
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

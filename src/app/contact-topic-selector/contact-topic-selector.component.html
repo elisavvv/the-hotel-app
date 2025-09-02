@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline" class="full-width">
+      <mat-label>Тема обращения</mat-label>
+      <mat-select 
+        [(ngModel)]="value"
+        (ngModelChange)="onChange($event)"
+        (blur)="onTouched()"
+        [disabled]="disabled"
+      >
+        <mat-option *ngFor="let topic of topics" [value]="topic.value">
+          {{ topic.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>

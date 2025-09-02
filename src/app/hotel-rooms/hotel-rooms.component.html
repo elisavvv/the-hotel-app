@@ -1,1 +1,16 @@
-<p>hotel-rooms works!</p>
+<div class="rooms-container">
+      <div class="room-card" *ngFor="let room of rooms">
+        <img [src]="room.photo" alt="Фото номера" class="room-photo">
+        <h2 class="room-title">{{ room.title }}</h2>
+        <div class="room-details">
+          <p>Тип: {{ room.type }}</p>
+          <div class="room-features">
+            <span class="feature-badge" *ngFor="let feature of room.features">{{ feature }}</span>
+          </div>
+          <p class="room-price">{{ room.price }} руб./ночь</p>
+          <button class="book-button" [disabled]="!room.available">
+            {{ room.available ? 'Забронировать' : 'Недоступно' }}
+          </button>
+        </div>
+      </div>
+    </div>

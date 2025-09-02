@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+.warning-snackbar {
+  background-color: #ff9800;
+  color: white;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 
+              0 6px 10px 0 rgba(0,0,0,0.14), 
+              0 1px 18px 0 rgba(0,0,0,0.12) !important;
+}
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.mat-form-field {
+  margin-bottom: 1rem;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+}
+
+.mat-radio-button {
+  margin-right: 8px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.cdk-drag-preview {
+  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background: white;
+  border-radius: 4px;
+  z-index: 1000;
+}
+

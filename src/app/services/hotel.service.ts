@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, delay, of } from 'rxjs';
 
-// Тип для данных о номерах (можно вынести в отдельный файл)
 export interface HousingLocation {
   id: number;
   name: string;
@@ -11,16 +10,34 @@ export interface HousingLocation {
   price: number;
   features: string[];
 }
+export interface Room {
+  id: number;
+  name: string;
+  price: number;
+}
 
-@Injectable({ providedIn: 'root' }) // Автоматически регистрируем сервис
+export interface HotelServiceItem {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+  price: number;
+  duration: string;
+}
+
+export interface BookingResponse {
+  success: boolean;
+}
+
+@Injectable({ providedIn: 'root' }) 
 export class HotelService {
-  constructor(private http: HttpClient) {}
-  private bookings: any[] = []; // Mock-база бронирований
+  private bookings: any[] = []; 
+  private selectedServices: HotelServiceItem[] = [];
 
-  // Метод для загрузки данных (с имитацией API через `delay`)
+  constructor(private http: HttpClient) {}
+
   getHousingLocations(): Observable<HousingLocation[]> {
 
-    // Имитируем API с задержкой 1 сек:
     const mockData: HousingLocation[] = [
       {
         id: 1,
@@ -64,20 +81,20 @@ export class HotelService {
       }
       ];
 
-    return of(mockData).pipe(delay(1000)); // Задержка для имитации сети
+    return of(mockData).pipe(delay(1000)); 
   }
 
-  // Метод для фильтрации 
   filterLocations(searchText: string, locations: HousingLocation[]): HousingLocation[] {
     if (!searchText) return locations;
+
     return locations.filter(loc => 
       loc.name.toLowerCase().includes(searchText.toLowerCase()) ||
       loc.description.toLowerCase().includes(searchText.toLowerCase())
     );
   }
-  //Получаем номер по ID
-  getRoomById(id: number) {
-    const mockRooms = [
+
+  getRoomById(id: number): Observable<Room | undefined> {
+    const mockRooms: Room[] = [
       { id: 1, name: 'Одноместный номер', price: 5000 },
       { id: 2, name: 'Двухместный номер', price: 8000 },
       { id: 3, name: 'Трехместный номер', price: 10000 },
@@ -85,16 +102,18 @@ export class HotelService {
       { id: 5, name: 'Президентский люкс', price: 25000 },
       
     ];
+
     return of(mockRooms.find(room => room.id === +id)).pipe(delay(500));
   }
 
-  // Отправка бронирования
-  bookRoom(bookingData: any) {
-    this.bookings.push(bookingData); // Сохраняем в mock-массив
-    return of({ success: true }).pipe(delay(1000)); // Имитация API
+
+  bookRoom(bookingData: any): Observable<BookingResponse> {
+    this.bookings.push(bookingData); 
+
+    return of({ success: true }).pipe(delay(1000)); 
   }
-  getHotelServices() {
-    const services = [
+  getHotelServices(): Observable<HotelServiceItem[]> {
+    const services: HotelServiceItem[] = [
       { 
         id: 1, 
         name: 'SPA-комплекс', 
@@ -110,9 +129,43 @@ export class HotelService {
         photo: 'assets/images/transfer.jpg',
         price: 1500,
         duration: 'В одну сторону'
+      },
+      {
+        id: 3,
+        name: 'Экскурсии по Дубаю',
+        description: 'Авторские экскурсии с профессиональным гидом',
+        photo: 'assets/images/exursion.jpg',
+        price: 4500,
+        duration: '4 часа'
+      },
+      {
+        id: 4,
+        name: 'Персональный консьерж',
+        description: 'Организация ресторанов, билетов и мероприятий',
+        photo: 'assets/images/concierge.jpg',
+        price: 7000,
+        duration: '1 день'
+      },
+      {
+        id: 5,
+        name: 'Детский клуб',
+        description: 'Профессиональный присмотр за детьми с развлекательной программой',
+        photo: 'assets/images/kids-club.jpg',
+        price: 2500,
+        duration: '3 часа'
       }
     ];
-    return of(services).pipe(delay(300)); // Имитация загрузки
+
+    return of(services).pipe(delay(300)); 
+  }
+  setSelectedServices(services: HotelServiceItem[]): void {
+    this.selectedServices = services;
+  }
+  getSelectedServices(): HotelServiceItem[] {
+    return this.selectedServices;
+  }
+  clearSelectedServices(): void {
+    this.selectedServices = [];
   }
 }
 

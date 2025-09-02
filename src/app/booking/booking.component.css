@@ -1,0 +1,29 @@
+.booking-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.date-display {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+button[mat-raised-button] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+mat-icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}

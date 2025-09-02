@@ -1,0 +1,106 @@
+.service-constructor {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-section, 
+.selected-section {
+  flex: 1;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.services-list,
+.selected-list {
+  min-height: 300px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+  background: white;
+}
+
+.service-card,
+.selected-card {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: move;
+}
+
+.selected-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cdk-drag-preview {
+  opacity: 0.8;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.services-list.cdk-drop-list-dragging .service-card:not(.cdk-drag-placeholder),
+.selected-list.cdk-drop-list-dragging .selected-card:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.empty-placeholder {
+  color: #999;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.total {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.service-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: #666;
+}
+
+.book-button {
+  background: #11A6E1;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.book-button:hover {
+  background: #0d8ec7;
+}
+
+.book-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .service-constructor {
+    flex-direction: column;
+  }
+}

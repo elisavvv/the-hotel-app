@@ -1,0 +1,57 @@
+<div class="service-constructor">
+  <h1>Дополнительные услуги</h1>
+
+  <div class="services-section">
+    <h2>Выберите услуги</h2>
+    <div 
+      cdkDropList
+      #availableList="cdkDropList"
+      [cdkDropListData]="availableServices"
+      class="services-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let service of availableServices" cdkDrag class="service-card">
+        <h3>{{service.name}}</h3>
+        <p>{{service.description}}</p>
+        <div class="service-details">
+          <span>Цена: {{service.price}} руб.</span>
+          <span>Длительность: {{service.duration}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="selected-section">
+    <h2>Ваш пакет</h2>
+    <div 
+      cdkDropList
+      #selectedList="cdkDropList"
+      [cdkDropListData]="selectedServices"
+      [cdkDropListConnectedTo]="[availableList]"
+      class="selected-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div *ngFor="let service of selectedServices; let i = index" cdkDrag class="selected-card">
+        <button mat-icon-button (click)="removeService(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <h3>{{service.name}}</h3>
+        <span>{{service.price}} руб.</span>
+      </div>
+      <div *ngIf="selectedServices.length === 0" class="empty-placeholder">
+        Перетащите услуги сюда
+      </div>
+    </div>
+    <div class="total">
+      <h3>Итого: {{totalPrice}} руб.</h3>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="bookServices()"
+        [disabled]="selectedServices.length === 0"
+      >
+        Забронировать
+      </button>
+    </div>
+  </div>
+</div>

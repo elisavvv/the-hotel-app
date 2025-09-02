@@ -1,29 +1,35 @@
 import { Component } from '@angular/core';
-import { HotelComponent } from './hotel/hotel.component';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './auth/auth.service';
+import { Observable } from 'rxjs';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
-    HotelComponent,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule
   ],
-  template: `
-  <header class="brand-name">
-    <img class="brand-logo" src="assets/logo.svg" alt="Логотип">
-    <nav>
-      <a routerLink="/" class="nav-button">Главная</a>
-      <a routerLink="/services" class="nav-button">Услуги</a>
-      <a routerLink="/booking/1" class="nav-button">Бронирование</a>
-    </nav>
-  </header>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-`,
-  styleUrl: './app.component.css'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'HotelApp';
+  isAuthenticated$: Observable<boolean>;
+
+  constructor(private authService: AuthService) {
+    this.isAuthenticated$ = this.authService.isAuthenticated();
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

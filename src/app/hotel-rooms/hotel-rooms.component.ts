@@ -1,27 +1,22 @@
-/*import { Component } from '@angular/core';
-import { HotelRoom } from '../housing-location/housing-location.component';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+interface HotelRoom {
+  id: number;
+  title: string;
+  photo: string;
+  type: string;
+  price: number;
+  features: string[];
+  available: boolean;
+}
 
 @Component({
   selector: 'app-hotel-rooms',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="rooms-container">
-      <app-housing-location.component
-        *ngFor="let room of rooms"
-        [room]="room">
-      </app-housing-location.component>
-    </div>
-  `,
-  styles: [`
-    .rooms-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-  `]
+  templateUrl: './hotel-rooms.component.html',
+  styleUrls: ['./hotel-rooms.component.css']
 })
 export class HotelRoomsComponent {
   rooms: HotelRoom[] = [
@@ -53,4 +48,4 @@ export class HotelRoomsComponent {
       available: false
     }
   ];
-}*/
+}

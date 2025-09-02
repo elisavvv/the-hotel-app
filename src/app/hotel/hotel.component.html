@@ -1,3 +1,8 @@
+ <div class="user-header">
+  <span>Добро пожаловать, {{username}}!</span>
+  <button mat-button (click)="logout()">Выйти</button>
+</div>
+ 
  <div *ngIf="isLoading" class="loading">Загрузка данных...</div>
 
   <section class="results">

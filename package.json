@@ -1,48 +1,63 @@
 {
-  "name": "hotel-app",
-  "version": "0.0.0",
+  "name": "hotel-app-server",
+  "version": "1.0.0",
+  "description": "JSON Server with JWT authentication for Hotel App",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "prepare": "husky",
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "start": "node server.js",
+    "json-server": "json-server --watch db.json --port 3000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "lint:style": "eslint 'src/**/*.ts' --fix"
   },
-  "private": true,
   "dependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/compiler": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/forms": "^19.2.0",
-    "@angular/platform-browser": "^19.2.0",
-    "@angular/platform-browser-dynamic": "^19.2.0",
-    "@angular/router": "^19.2.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "@angular/cdk": "^19.2.16",
+    "@angular/common": "^19.2.10",
+    "@angular/core": "^19.2.10",
+    "@angular/forms": "^19.2.10",
+    "@angular/material": "^19.2.16",
+    "@angular/router": "^19.2.10",
+    "@types/jwt-decode": "^2.2.1",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "json-server": "0.17.4",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.9",
-    "@angular/cli": "^19.2.9",
-    "@angular/compiler-cli": "^19.2.0",
-    "angular-eslint": "^19.3.0",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.6.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "8.27.0",
-    "lint-staged": "15.5.1",
-    "husky": "9.1.7"
+    "@angular-builders/jest": "^19.0.1",
+    "@angular-eslint/builder": "^19.4.0",
+    "@angular-eslint/eslint-plugin": "^19.4.0",
+    "@angular-eslint/eslint-plugin-template": "^19.4.0",
+    "@angular-eslint/schematics": "^19.4.0",
+    "@angular-eslint/template-parser": "^19.4.0",
+    "@angular/cli": "^19.2.13",
+    "@schematics/angular": "^19.2.13",
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "typescript": "~5.5.3"
   },
-  "lint-staged": {
-    "*.{js,ts,html,svg,yml,md,css,json}": [
-      "eslint --fix"
-    ]
-  }
+  "resolutions": {
+    "@typescript-eslint/typescript-estree": "7.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elisavvv/the-hotel-app.git"
+  },
+  "keywords": [
+    "json-server",
+    "rest-api",
+    "authentication"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elisavvv/the-hotel-app/issues"
+  },
+  "homepage": "https://github.com/elisavvv/the-hotel-app#readme"
 }

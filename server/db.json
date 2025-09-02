@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "email": "admin@example.com"
+    }
+  ],
+  "hotels": [
+    {
+      "id": 1,
+      "name": "Grand Hotel",
+      "price": 200
+    }
+  ]
+}
